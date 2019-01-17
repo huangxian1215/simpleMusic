@@ -1,0 +1,58 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_item_key_value"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/lightYellow"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/value_name"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:text="请选择"/>
+    <RadioGroup
+        android:id="@+id/rg_admit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="51"
+        android:gravity="center|center_vertical"
+        android:orientation="vertical" >
+
+        <RadioButton
+            android:id="@+id/rb_normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="普通"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+        <RadioButton
+            android:id="@+id/rb_hight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="高清"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+        <RadioButton
+            android:id="@+id/rb_real"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="无损"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+    </RadioGroup>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+        <Button
+            android:id="@+id/download_confirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="下载" />
+    </LinearLayout>
+
+
+</LinearLayout>

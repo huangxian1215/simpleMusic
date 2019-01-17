@@ -1,0 +1,34 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_music_info"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="@color/lightBlue"
+    android:orientation="horizontal" >
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical" >
+        <TextView
+            android:id="@+id/music_name"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:textSize="18sp"
+            android:gravity="left|center"
+            android:text="Senerity"/>
+        <TextView
+            android:id="@+id/music_detail"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:textSize="18sp"
+            android:gravity="left|center"
+            android:text="singer,专辑:《》"/>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/music_time"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:textSize="18sp"
+        android:gravity="left|center"
+        android:text="3:00"/>
+</LinearLayout>
