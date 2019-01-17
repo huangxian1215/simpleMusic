@@ -39,6 +39,7 @@ public class MusicListActivity extends AppCompatActivity implements OnClickListe
         app = MainApplication.getInstance();
         findViewById(R.id.ac_play).setOnClickListener(this);
         display();
+        app.downtype = 0;
     }
 
     public void display(){

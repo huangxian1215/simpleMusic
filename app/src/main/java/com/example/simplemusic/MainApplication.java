@@ -17,7 +17,7 @@ public class MainApplication extends Application {
     public String mFilePath;
     //下载用
     public String vkey;
-    public int downtype;
+    public int downtype = 0;
     public String qqsongid;
 
     public ArrayList<qqMusicInfo> mqqMusicInfo;

@@ -124,6 +124,9 @@ public class MusicDetailActivity extends AppCompatActivity implements OnClickLis
                 mmode = app.mMode;
             }
         }
+        if(app.downtype != 0){
+            mmode = 3;
+        }
     }
 
     public void setLocalStore(){
@@ -153,6 +156,19 @@ public class MusicDetailActivity extends AppCompatActivity implements OnClickLis
         mAudioMgr = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         playMusic();
         app.mMusic = mMusic;
+        if(app.downtype == 0){
+            btn_down.setVisibility(View.GONE);
+            btn_next.setVisibility(View.VISIBLE);
+            btn_pre.setVisibility(View.VISIBLE);
+            btn_mode.setVisibility(View.VISIBLE);
+            btn_colect.setVisibility(View.VISIBLE);
+        }else{
+            btn_down.setVisibility(View.VISIBLE);
+            btn_next.setVisibility(View.GONE);
+            btn_pre.setVisibility(View.GONE);
+            btn_mode.setVisibility(View.GONE);
+            btn_colect.setVisibility(View.GONE);
+        }
     }
 
     public void setMusic(int i){
@@ -176,7 +192,7 @@ public class MusicDetailActivity extends AppCompatActivity implements OnClickLis
         }
         if(app.mMode == 1) btn_mode.setText("顺序");
         if(app.mMode == 2) btn_mode.setText("随机");
-        if(app.mMode == 0) btn_mode.setText("单曲");
+        if(app.mMode == 3) btn_mode.setText("单曲");
     }
 
     @Override
@@ -272,7 +288,7 @@ public class MusicDetailActivity extends AppCompatActivity implements OnClickLis
     public void openDownloadMusic(){
         //mMusic.getMusicFileSize();
         Intent intent = new Intent(this, Mp3DownLoadChooseDialog.class);
-        intent.putExtra("types", 7);// 1 1 1
+        intent.putExtra("types", app.downtype);// 1 1 1
         startActivityForResult(intent, DOWNLOAD_RESULTCODE);
     }
 
@@ -291,17 +307,24 @@ public class MusicDetailActivity extends AppCompatActivity implements OnClickLis
             Boolean flag = file.mkdirs();
         }
         String tp = ".mp3";
+        String prepath = path +"/" + mMusic.getTitle();
+        path = prepath;
         if(type == 3){
-            path = path +"/" + mMusic.getTitle() + ".flac";
+            path = path+".flac";
             tp = ".flac";
         }else{
-            path = path +"/" + mMusic.getTitle() + ".mp3";
+            path = path+".mp3";
         }
 
         String req = "http://streamoc.music.tc.qq.com/"+stringType+ songid + tp +"?vkey=" +vkey + "&guid=1234567890&uin=19901215&fromtag=8";
         file = new File(path);
         if(!file.exists()){
             new DownloadTack().execute(req, path, "mp3");// + clickSong.mMusicName +
+        }else{
+            Long time = System.currentTimeMillis();
+            String str = String.valueOf(time);
+            prepath = prepath + str + tp;
+            new DownloadTack().execute(req, prepath, "mp3");
         }
 
     }

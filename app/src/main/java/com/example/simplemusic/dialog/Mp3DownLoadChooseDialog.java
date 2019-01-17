@@ -22,15 +22,27 @@ public class Mp3DownLoadChooseDialog extends Activity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_mp3_download_choose);
         findViewById(R.id.download_confirm).setOnClickListener(this);
+        mtype = getIntent().getIntExtra("types",1);
         //初始化按钮
         initRadioGroup();
     }
 
     public void initRadioGroup(){
+
         mgroup = (RadioGroup)findViewById(R.id.rg_admit);
         mnormal = (RadioButton)findViewById(R.id.rb_normal);
         mhight = (RadioButton)findViewById(R.id.rb_hight);
         mreal = (RadioButton)findViewById(R.id.rb_real);
+        if(mtype == 1){
+            mhight.setVisibility(View.GONE);
+            mreal.setVisibility(View.GONE);
+        }
+        if(mtype == 3){
+            mreal.setVisibility(View.GONE);
+        }
+        if(mtype == 5){
+            mhight.setVisibility(View.GONE);
+        }
 
         mgroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
