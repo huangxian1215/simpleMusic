@@ -10,7 +10,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 public class SearchLocalMusicTask extends AsyncTask<String, Integer, String> {
-    private String[] ext={"mp3", "wav", "mid", "ogg", "amr", "acc", "pcm", "flac"};//定义我们要查找的文件格式
+    private String[] ext={"mp3", "wav", "ogg", "flac"};//定义我们要查找的文件格式
     private UserDBHelper mHelper;
 
     public SearchLocalMusicTask(){
@@ -45,7 +45,10 @@ public class SearchLocalMusicTask extends AsyncTask<String, Integer, String> {
                         String name = files[j].getName();//获得文件的名称
                         for (int i = 0; i < ext.length; i++) {
                             if (fileName.endsWith(ext[i])) {//判断文件后缀名是否包含我们定义的格式
-                                writeDataToDB(name, fileName);
+                                long size = files[j].length();
+                                if(size > 1258291){ //记录大于1.2M的文件
+                                    writeDataToDB(name, fileName);
+                                }
                                 break;
                             }
                         }

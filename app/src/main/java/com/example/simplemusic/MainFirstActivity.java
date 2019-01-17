@@ -2,11 +2,15 @@ package com.example.simplemusic;
 
 import java.util.ArrayList;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.media.AudioManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.TabLayout.ViewPagerOnTabSelectedListener;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.SimpleOnPageChangeListener;
 import android.support.v7.app.AppCompatActivity;
@@ -54,7 +58,7 @@ public class MainFirstActivity extends AppCompatActivity implements VolumeAdjust
         mTitleArray.add("网络");
         initTabLayout();
         initTabViewPager();
-
+        getPermissions();
     }
     //音量调节对话框
     @Override
@@ -82,6 +86,26 @@ public class MainFirstActivity extends AppCompatActivity implements VolumeAdjust
         }
         dialog.adjustVolume(direction, true);
         onVolumeAdjust(mAudioMgr.getStreamVolume(AudioManager.STREAM_MUSIC));
+    }
+
+    private void getPermissions(){
+        //申请SD卡读写权限
+        ActivityCompat.requestPermissions(MainFirstActivity.this, new String[]{android
+                .Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.INTERNET}, 1);
+    }
+
+    //得到读写SD卡权限回调
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        //super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case 1:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                }else {
+                    finish();
+                }
+        }
     }
 
     private void initTabLayout() {
