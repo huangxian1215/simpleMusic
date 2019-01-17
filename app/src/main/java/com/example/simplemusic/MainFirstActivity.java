@@ -156,7 +156,7 @@ public class MainFirstActivity extends AppCompatActivity implements VolumeAdjust
         } else if (id == R.id.menu_quit) {
             finish();
         }
-        return super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(item);//
     }
 
     @Override
