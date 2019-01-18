@@ -58,6 +58,7 @@ public class MusicDetailActivity extends AppCompatActivity implements OnClickLis
     private static final String TAG = "MusicDetailActivity";
     private TextView tv_title;
     private TextView tv_artist;
+
     private TextView tv_music;
     private MusicInfo mMusic;
     private AudioController ac_play;
@@ -137,8 +138,8 @@ public class MusicDetailActivity extends AppCompatActivity implements OnClickLis
 
     public void initMusic(){
         setText();
-        tv_title.setText(mMusic.getTitle());
-        tv_artist.setText(mMusic.getArtist());
+        String title = mMusic.getTitle() + " - " + mMusic.getArtist();
+        tv_title.setText(title);
         mCount = 0;
         mPrePos = -1;
         mNextPos = 0;
@@ -237,6 +238,7 @@ public class MusicDetailActivity extends AppCompatActivity implements OnClickLis
                     if (resultCode == DOWNLOAD_RESULTCODE) {//下载
                         int quality = (int)data.getSerializableExtra("quality");
                         downloadMusic(quality);
+                        //保存到数据库
                     }
                 }
                 break;
