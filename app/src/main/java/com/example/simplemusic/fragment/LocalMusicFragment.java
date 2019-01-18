@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.simplemusic.MusicListActivity;
 import com.example.simplemusic.R;
@@ -26,8 +27,10 @@ public class LocalMusicFragment extends Fragment implements OnSearchLocalListene
     protected View mView;
     protected Context mContext;
     //控件
+    private TextView tv_refresh;
     private TextView localSongsNum;
     private TextView myLoveSongsNum;
+    private TextView myDownSongsNum;
     private ListView mListMenu;
     private UserDBHelper mHelper;
 
@@ -41,12 +44,8 @@ public class LocalMusicFragment extends Fragment implements OnSearchLocalListene
     @Override
     public void onActivityCreated(Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
-        getActivity().findViewById(R.id.new_song_menu).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            }
-        });
-        getActivity().findViewById(R.id.refresh_local).setOnClickListener(new OnClickListener() {
+        tv_refresh =  getActivity().findViewById(R.id.refresh_local);
+        tv_refresh.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 refresh();
@@ -70,12 +69,22 @@ public class LocalMusicFragment extends Fragment implements OnSearchLocalListene
                 startActivity(intent);
             }
         });
+        myDownSongsNum = getActivity().findViewById(R.id.down_songs);
+        myDownSongsNum.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, MusicListActivity.class);
+                intent.putExtra("type", 2);
+                startActivity(intent);
+            }
+        });
         mListMenu = (ListView) getActivity().findViewById(R.id.lv_musicMenuList);
         mHelper = UserDBHelper.getmHelper();
         onSearchLocalMusicInfo("");
     }
 
     public void refresh(){
+        mcount = 0;
         SearchLocalMusicTask  searchLocalTask = new SearchLocalMusicTask();
         searchLocalTask.setOnSearchLocalListener(this);
         searchLocalTask.execute("searchLocalMusic");
@@ -90,6 +99,18 @@ public class LocalMusicFragment extends Fragment implements OnSearchLocalListene
         local = "我喜欢的音乐(";
         local += String.valueOf( mHelper.queryAllNum(1)) + ")";
         myLoveSongsNum.setText(local);
+        local = "下载的歌曲(";
+        local += String.valueOf( mHelper.queryAllNum(2)) + ")";
+        myDownSongsNum.setText(local);
+        Toast.makeText(mContext, "搜索完毕", Toast.LENGTH_SHORT).show();
+        tv_refresh.setText("刷新");
+    }
+
+    private int mcount = 0;
+    @Override
+    public void findOne(){
+        String str = String.format("找到%s个",mcount);
+        tv_refresh.setText(str);
     }
 
 }

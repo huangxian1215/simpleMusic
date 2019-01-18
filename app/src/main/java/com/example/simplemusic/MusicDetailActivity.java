@@ -172,7 +172,7 @@ public class MusicDetailActivity extends AppCompatActivity implements OnClickLis
     }
 
     public void setMusic(int i){
-        if(mnumber > app.mqqMusicInfo.size()) {
+        if(mnumber >= app.mqqMusicInfo.size()) {
             mnumber = 0;
             i = 0;
         }
@@ -251,10 +251,12 @@ public class MusicDetailActivity extends AppCompatActivity implements OnClickLis
             Random rand = new Random();
             int i = rand.nextInt(app.mqqMusicInfo.size());
             if(app.mqqMusicInfo.get(i).mMusicUrl.equals(mMusic.getUrl())){
-                i++;
-                if(i >= app.mqqMusicInfo.size()) i=i-2;
-                if(i<0) i = 0;
-                mnumber = 0;
+                new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    app.mMediaPlayer.start();
+                }}, 2000);
+                return;
             }
             setMusic(i);
         }else{
@@ -277,7 +279,7 @@ public class MusicDetailActivity extends AppCompatActivity implements OnClickLis
         //奖当前标记为喜欢
         String condition ="url = '" +mMusic.getUrl()+"'";
         mlove = mlove == 0 ? 1 : 0;
-        UserDBHelper.getmHelper().update(condition , mlove);
+        UserDBHelper.getmHelper().updatelove(condition , mlove);
         if(mlove == 0){
             btn_colect.setText("喜欢?");
         }else {

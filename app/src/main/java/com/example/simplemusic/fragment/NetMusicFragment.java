@@ -78,7 +78,6 @@ public class NetMusicFragment extends Fragment implements OnItemClickListener, O
     private boolean isStop = true;
     private boolean isInit = false;
     MusicInfo mMusic;
-    private ArrayList<File> buffFilePath = new ArrayList<File>();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mContext = getActivity();
@@ -109,7 +108,7 @@ public class NetMusicFragment extends Fragment implements OnItemClickListener, O
         lv_music = (ListView) getActivity().findViewById(R.id.lv_music);
         tv_song = (TextView) getActivity().findViewById(R.id.tv_song);
         searchEdt = (EditText) getActivity().findViewById(R.id.edit_Music_name);
-        initList();
+        deleteBuff();
         ac_play = (AudioController) getActivity().findViewById(R.id.ac_play);
         mAudioMgr = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
         app = MainApplication.getInstance();
@@ -117,19 +116,18 @@ public class NetMusicFragment extends Fragment implements OnItemClickListener, O
         getVkey();
     }
 
-//    @Override
-//    public void onStop(){
-//        super.onStop();
-//        for(int i = 0; i < buffFilePath.size(); i++){
-//            buffFilePath.get(i).delete();
-//            if(buffFilePath.get(i).exists()){
-//                buffFilePath.remove(i);
-//            }
-//        }
-//    }
 
-    private void initList() {
-
+    private void deleteBuff() {
+        //离开后删除.mp3 mLrcPath
+        File file = new File(mLrcPath);
+        if(file.exists()){
+            File[] files = file.listFiles();
+            for(int i = 0; i < files.length; i++){
+                if(files[i].getAbsolutePath().endsWith(".mp3")){
+                    files[i].delete();
+                }
+            }
+        }
     }
 
     private void initController() {
@@ -286,7 +284,7 @@ public class NetMusicFragment extends Fragment implements OnItemClickListener, O
         }
         path = path +"/" + clickSong.mMusicName + clickSong.getMusicID() + ".mp3";
         file = new File(path);
-        buffFilePath.add(file);
+
         //缓存MP3文件
         mMusic = new MusicInfo();
         mMusic.setTitle(clickSong.mMusicName);
@@ -365,11 +363,6 @@ public class NetMusicFragment extends Fragment implements OnItemClickListener, O
         @Override
         public void onDownloadFinish(String type){
             if(type.equals("mp3")){
-                //下载完后删除
-                if(buffFilePath.size() > 1 && buffFilePath.get(0).exists()){
-                    buffFilePath.get(0).delete();
-                    buffFilePath.remove(0);
-                }
             }
             if(type.equals("jpg")){//显示专辑图片
 

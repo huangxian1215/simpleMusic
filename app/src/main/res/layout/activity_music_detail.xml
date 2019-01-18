@@ -2,11 +2,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/lightGreen"
+    android:focusableInTouchMode="false"
     android:orientation="vertical" >
     <LinearLayout
         android:id="@+id/tv_top"
         android:layout_width="match_parent"
-        android:layout_height="25dp"
+        android:layout_height="50dp"
         android:orientation="horizontal" >
         <TextView
             android:id="@+id/tv_title"
@@ -31,13 +32,6 @@
             android:background="@color/grey"
             android:layout_weight="1"
             android:text="顺序"/>
-        <TextView
-            android:id="@+id/music_download"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:background="@color/lightYellow"
-            android:layout_weight="1"
-            android:text="下载"/>
     </LinearLayout>
     <LinearLayout
         android:id="@+id/tv_secend"
@@ -53,21 +47,8 @@
             android:textColor="@color/black"
             android:textSize="16sp"
             android:text="薛之谦"/>
-        <TextView
-            android:id="@+id/pre_song"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:background="@color/grey"
-            android:layout_weight="1"
-            android:text="上一曲"/>
-        <TextView
-            android:id="@+id/next_song"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:background="@color/lightYellow"
-            android:layout_weight="1"
-            android:text="下一曲"/>
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/tv_lrc1"
         android:layout_width="match_parent"
@@ -95,7 +76,33 @@
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
+    <TextView
+        android:id="@+id/pre_song"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="250dp"
+        android:focusable="true"
+        android:background="@color/grey"
+        android:text="上一曲"/>
+    <TextView
+        android:id="@+id/next_song"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="250dp"
 
+        android:background="@color/lightYellow"
+        android:text="下一曲"/>
+    <TextView
+        android:id="@+id/music_download"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="250dp"
+
+        android:background="@color/lightYellow"
+        android:text="下载"/>
     <com.example.simplemusic.widget.AudioController
         android:id="@+id/ac_play"
         android:layout_width="match_parent"

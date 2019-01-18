@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class SearchLocalMusicTask extends AsyncTask<String, Integer, String> {
     private String[] ext={"mp3", "wav", "ogg", "flac"};//定义我们要查找的文件格式
     private UserDBHelper mHelper;
-
+    private String downloadpath = Environment.getExternalStorageDirectory()+"/hxdesign/down";
     public SearchLocalMusicTask(){
         super();
         mHelper = UserDBHelper.getmHelper();
@@ -47,7 +47,7 @@ public class SearchLocalMusicTask extends AsyncTask<String, Integer, String> {
                             if (fileName.endsWith(ext[i])) {//判断文件后缀名是否包含我们定义的格式
                                 long size = files[j].length();
                                 if(size > 1258291){ //记录大于1.2M的文件
-                                    writeDataToDB(name, fileName);
+                                    writeDataToDB(name, fileName, files[j].getParent());
                                 }
                                 break;
                             }
@@ -65,13 +65,20 @@ public class SearchLocalMusicTask extends AsyncTask<String, Integer, String> {
         }
     }
 
-    private void writeDataToDB(String name, String url){
+    private void writeDataToDB(String name, String url, String parentFile){
         dbMusicInfo asong = new dbMusicInfo(name, url);
         //url如果没有这首歌就保存
+
+        if(parentFile.equals(downloadpath)){
+            asong.mpackname = "down";
+        }
         String condition = String.format("url = '%s'", url);
         if(mHelper.query_tab(condition).size() == 0){
             mHelper.insert(asong);
+        }else{
+            mHelper.updatePackname(condition, asong);
         }
+        mListener.findOne();
     }
 
     @Override
@@ -85,5 +92,6 @@ public class SearchLocalMusicTask extends AsyncTask<String, Integer, String> {
     }
     public static interface OnSearchLocalListener{
         public abstract void onSearchLocalMusicInfo(String info);
+        public abstract void findOne();
     }
 }

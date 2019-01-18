@@ -154,7 +154,9 @@ public class UserDBHelper extends SQLiteOpenHelper {
         long count = 0;
         String sql = "";
         if(type == 1){
-            sql =  "select count(*) from " + TAB_MUSIC_INFO +" where love = 1;" ;
+            sql =  "select count(*) from " + TAB_MUSIC_INFO + " where love = 1;" ;
+        }else if(type == 2){
+            sql = "select count(*) from " + TAB_MUSIC_INFO + " where packname = 'down';";
         }else{
             sql = "select count(*) from " + TAB_MUSIC_INFO +";" ;
         }
@@ -165,11 +167,20 @@ public class UserDBHelper extends SQLiteOpenHelper {
         return count;
     }
 
-    public int update(String condition, int islove) {
+    public int updatelove(String condition, int islove) {
         openReadLink();
         ContentValues cv = new ContentValues();
         cv.put("love", islove);
         int count = mDB.update(TAB_MUSIC_INFO, cv, condition, null);
+        return count;
+    }
+
+    public int updatePackname(String condition, dbMusicInfo song){
+        openWriteLink();
+        int count = 0;
+        ContentValues cv = new ContentValues();
+        cv.put("packname", song.mpackname);
+        count = mDB.update(TAB_MUSIC_INFO, cv, condition, null);
         return count;
     }
 

@@ -47,6 +47,9 @@ public class MusicListActivity extends AppCompatActivity implements OnClickListe
         if(mpack == 1){
             condition = "love=1";
         }
+        if(mpack == 2){
+            condition = "packname = 'down'";
+        }
         mAllLocalMusic = UserDBHelper.getmHelper().query_tab(condition);
         app.mqqMusicInfo = new ArrayList<qqMusicInfo>();
         for(int n = 0; n < mAllLocalMusic.size(); n++){

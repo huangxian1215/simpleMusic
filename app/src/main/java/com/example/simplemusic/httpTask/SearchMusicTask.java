@@ -20,7 +20,7 @@ public class SearchMusicTask extends AsyncTask<String, Integer, String>{
     public SearchMusicTask(String searchName, String time){
         super();
         //mSearchName = "http://47.107.101.237/api?method=search&key=" + searchName + "&pageIndex=1&pageSize=20&_="+time;
-        mSearchName = "http://c.y.qq.com/soso/fcgi-bin/client_search_cp?ct=24&qqmusic_ver=1298&new_json=1&remoteplace=txt.yqq.center&t=0&aggr=1&cr=1&catZhida=1&lossless=0&flag_qc=0&p=1&n=100&w="+ searchName +"&&jsonpCallback=searchCallbacksong2020&format=json&inCharset=utf8&outCharset=utf-8&notice=0&platform=yqq&needNewCode=0";
+        mSearchName = "http://c.y.qq.com/soso/fcgi-bin/client_search_cp?ct=24&qqmusic_ver=1298&new_json=1&remoteplace=txt.yqq.center&t=0&aggr=1&cr=1&catZhida=1&lossless=0&flag_qc=0&p=1&n=20&w="+ searchName +"&&jsonpCallback=searchCallbacksong2020&format=json&inCharset=utf8&outCharset=utf-8&notice=0&platform=yqq&needNewCode=0";
     }
 
     @Override
