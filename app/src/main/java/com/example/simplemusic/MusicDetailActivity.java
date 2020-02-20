@@ -91,7 +91,7 @@ public class MusicDetailActivity extends AppCompatActivity implements OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_music_detail);
         tv_title = (TextView) findViewById(R.id.tv_title);
-        tv_artist = (TextView) findViewById(R.id.tv_artist);
+       // tv_artist = (TextView) findViewById(R.id.tv_artist);
         tv_music = (TextView) findViewById(R.id.tv_music);
         btn_colect = findViewById(R.id.music_love);
         btn_down = findViewById(R.id.music_download);
